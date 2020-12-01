@@ -1,11 +1,9 @@
 import * as React from "react";
 import { WebView } from "react-native-webview";
-import AssetUtils from "expo-asset-utils";
-import { Asset } from "expo-asset";
+
 import WebViewQuillJSView from "./WebViewQuillJS.view";
 
 import { ActivityOverlay } from "./ActivityOverlay";
-import * as FileSystem from "expo-file-system";
 import {
   WebviewQuillJSMessage,
   WebviewQuillJSEvents,
@@ -52,12 +50,9 @@ class WebViewQuillJS extends React.Component<WebViewQuillJSProps, State> {
 
   private loadHTMLFile = async () => {
     try {
-      let asset: Asset = await AssetUtils.resolveAsync(INDEX_FILE_PATH);
-      let fileString: string = await FileSystem.readAsStringAsync(
-        asset.localUri
-      );
+      let html = require('./assets/index.html')
 
-      this.setState({ webviewContent: fileString });
+      this.setState({ webviewContent: html });
     } catch (error) {
       console.warn(error);
       console.warn("Unable to resolve index file");
